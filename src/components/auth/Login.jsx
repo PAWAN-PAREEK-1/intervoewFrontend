@@ -1,30 +1,47 @@
-import React from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 import classes from './AuthForm.module.scss';
 
-function Login() {
-  const navigate = useNavigate();
+function Register() {
+  const [error, setError] = useState('');
 
-  const login = async (e) => {
+  const register = async (e) => {
     e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
+    setError('');
+
+    const user = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+
     try {
-      await axios.post('/api/auth/login', {
-        email,
-        password,
-      });
-      navigate('/');
+      await axios.post('/api/auth/register', user);
+      toast.success('Registered successfully');
     } catch (err) {
-      console.log(err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+        toast.error(err.response.data.message);
+      } else {
+        setError('Something went wrong');
+        toast.error('Something went wrong');
+      }
     }
   };
+
   return (
     <div className={classes.register}>
-      <h1 className={classes.title}>Login</h1>
-      <form className={classes.authForm} onSubmit={login}>
+      <h1 className={classes.title}>Register</h1>
+
+      {error && <p className={classes.error}>{error}</p>}
+
+      <form className={classes.authForm} onSubmit={register}>
+        <label htmlFor="name">
+          Full Name:
+          <input name="name" type="text" placeholder="Full Name" required />
+        </label>
         <label htmlFor="email">
           email:
           <input name="email" type="email" placeholder="email" required />
@@ -32,18 +49,13 @@ function Login() {
         <br />
         <label htmlFor="password">
           password:
-          <input
-            name="password"
-            type="password"
-            placeholder="password"
-            required
-          />
+          <input name="password" type="password" placeholder="password" required />
         </label>
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
