@@ -1,0 +1,33 @@
+
+.title {
+	font-size: 3rem;
+	text-align: center;
+	margin-block: 2rem;
+}
+.authForm {
+	margin-top: 2rem;
+	width: 100%;
+	label {
+		width: 100%;
+		font-size: 2rem;
+	}
+	input {
+		font-size: 2rem;
+		width: 100%;
+		margin-bottom: 2rem;
+		margin-top: 0.5rem;
+		padding: 1rem;
+		border-radius: 6px;
+		border: 2px solid rgba(0, 0, 0, 0.2);
+		background-color: transparent;
+	}
+	button[type='submit'] {
+		font-size: 2rem;
+		padding: 0.5rem 1rem;
+		background: black;
+		color: white;
+		border-radius: 6px;
+		border: 2px solid black;
+		cursor: pointer;
+	}
+}

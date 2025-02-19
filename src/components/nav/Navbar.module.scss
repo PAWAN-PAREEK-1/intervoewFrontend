@@ -1,0 +1,40 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.5rem 1rem;
+}
+.userInfo {
+	display: flex;
+
+	.name {
+		font-size: 3rem;
+		margin-block: 2rem;
+	}
+	.email {
+		font-size: 1.8rem;
+	}
+}
+.logout {
+	display: inline-block;
+	background-color: black;
+	padding: 1rem 2rem;
+	font-size: 1.8rem;
+	border: none;
+	color: white;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: 0.3s ease background-color, 0.3s ease color;
+	&:hover {
+		background-color: white;
+		color: black;
+		border: 2px solid black;
+	}
+}
+.editBtn {
+	display: inline-block;
+	text-decoration: underline;
+	margin-top: 1rem;
+	font-size: 1.5rem;
+	cursor: pointer;
+}

@@ -1,0 +1,21 @@
+.form_container {
+	display: flex;
+	gap: 2rem;
+	justify-content: center;
+  align-items: center;
+  flex-direction: column;
+	@media only screen and (max-width: 768px) {
+		flex-direction: column;
+	}
+}
+
+
+.toggleButton{
+	font-size: 2rem;
+		padding: 0.5rem 1rem;
+		background: black;
+		color: white;
+		border-radius: 6px;
+		border: 2px solid black;
+		cursor: pointer;
+}
