@@ -1,47 +1,37 @@
+import React from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 import classes from './AuthForm.module.scss';
 
-function Register() {
-  const [error, setError] = useState('');
+function Login() {
+  const navigate = useNavigate();
+  const [error, setError] = useState('')
 
-  const register = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
     setError('');
-
-    const user = {
-      name: e.target.name.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
-    };
-
+    const email = e.target.email.value;
+    const password = e.target.password.value;
     try {
-      await axios.post('/api/auth/register', user);
-      toast.success('Registered successfully');
+      await axios.post('/api/auth/login', {
+        email,
+        password,
+      });
+      navigate('/');
     } catch (err) {
+      console.log(err);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
-        toast.error(err.response.data.message);
       } else {
-        setError('Something went wrong');
-        toast.error('Something went wrong');
+        setError('Something went wrong. Please try again.');
       }
     }
   };
-
   return (
     <div className={classes.register}>
-      <h1 className={classes.title}>Register</h1>
-
-      {error && <p className={classes.error}>{error}</p>}
-
-      <form className={classes.authForm} onSubmit={register}>
-        <label htmlFor="name">
-          Full Name:
-          <input name="name" type="text" placeholder="Full Name" required />
-        </label>
+      <h1 className={classes.title}>Login</h1>
+      <form className={classes.authForm} onSubmit={login}>
         <label htmlFor="email">
           email:
           <input name="email" type="email" placeholder="email" required />
@@ -49,13 +39,19 @@ function Register() {
         <br />
         <label htmlFor="password">
           password:
-          <input name="password" type="password" placeholder="password" required />
+          <input
+            name="password"
+            type="password"
+            placeholder="password"
+            required
+          />
         </label>
         <br />
-        <button type="submit">Register</button>
+        <button type="submit">Login</button>
+        {error && <h3 className={classes.error}>{error}</h3>}
       </form>
     </div>
   );
 }
 
-export default Register;
+export default Login;
